@@ -1,6 +1,6 @@
 
 # =================================================================================
-# Office365 Retention label and policy checking script
+# Information Leadership Office365 Retention label and policy checking script
 # =================================================================================
 # NOTES/PREREQUISITES:
 # Please ensure that when running this script you have the Exchange administrator, 
@@ -74,14 +74,14 @@ foreach ($r in $retention)
         $Output = @()
         $policyname = $r.name
 
-        $policysites = get-retentioncompliancepolicy -identity $r.identity -ExcludeTeamsPolicy -DistributionDetail -RetentionRuleTypes | select -expandproperty SharepointLocation
+        $policysites = get-retentioncompliancepolicy -identity $r.identity -ExcludeTeamsPolicy -DistributionDetail -RetentionRuleTypes | Select-Object -expandproperty SharepointLocation
         $policysites2 = get-retentioncompliancepolicy -ExcludeTeamsPolicy -DistributionDetail -RetentionRuleTypes
 
-        $Policysitename = $policysites.name | Out-String
+#     $Policysitename = $policysites.name | Out-String
 
             foreach($s in $Sposites)
                 {
-                $sURL = $s.URL
+#               $sURL = $s.URL
                     if ($policysites.name -eq $S.url)
                         {
 
@@ -90,8 +90,8 @@ foreach ($r in $retention)
 # ApplyComplianceTag in the Compliance rule depending on the method of application
 # =================================================================================
 
-                            $LabelInfo = Get-RetentionComplianceRule -policy $Policyname | select ComplianceTagProperty
-                            $LabelInfo2 = Get-RetentionComplianceRule -policy $Policyname | select ApplyComplianceTag
+                            $LabelInfo = Get-RetentionComplianceRule -policy $Policyname | Select-Object ComplianceTagProperty
+                            $LabelInfo2 = Get-RetentionComplianceRule -policy $Policyname | Select-Object ApplyComplianceTag
 
 
                             if ($LabelInfo2.ApplyComplianceTag)
@@ -195,13 +195,13 @@ foreach ($policy in $policysites2)
 # Return the locations that the policy is applied
 # =================================================================================
 
-	    $policycheck = get-retentioncompliancepolicy -identity $policyname -ExcludeTeamsPolicy -DistributionDetail -RetentionRuleTypes | select -expandproperty SharepointLocation
+	    $policycheck = get-retentioncompliancepolicy -identity $policyname -ExcludeTeamsPolicy -DistributionDetail -RetentionRuleTypes | Select-Object -expandproperty SharepointLocation
 
 # =================================================================================
 # Refine this variable down to only Policies that include "All" SharePoint sites
 # =================================================================================
 
-	    $policyALL = $policycheck | where{$_.DisplayName -eq "All"}
+	    $policyALL = $policycheck | Where-Object{$_.DisplayName -eq "All"}
 	        if ($policyALL.DisplayName -eq "All")
 	            {
 
@@ -209,8 +209,8 @@ foreach ($policy in $policysites2)
 # Now, get all information on the labels associated with these tenant wide policies
 # =================================================================================
 
-                    $LabelInfo = Get-RetentionComplianceRule -policy $Policyname | select ComplianceTagProperty
-                    $LabelInfo2 = Get-RetentionComplianceRule -policy $Policyname | select ApplyComplianceTag
+                    $LabelInfo = Get-RetentionComplianceRule -policy $Policyname | Select-Object ComplianceTagProperty
+                    $LabelInfo2 = Get-RetentionComplianceRule -policy $Policyname | Select-Object ApplyComplianceTag
 
 
                     if ($LabelInfo2.ApplyComplianceTag)
@@ -291,16 +291,16 @@ foreach ($r in $rcompliance)
         $L2concat = ""
         $x2concat = ""
         $y2concat = ""
-        $RFL = Get-Retentioncompliancepolicy -identity $r.name -ExcludeTeamsPolicy | FL
+#        $RFL = Get-Retentioncompliancepolicy -identity $r.name -ExcludeTeamsPolicy | FL
 
 # =================================================================================
 # Expand properties of Retention compliane policy and bind to variables
 # =================================================================================
 
-        $LabelInfo = Get-RetentionComplianceRule -policy $R.name| select ComplianceTagProperty
-        $LabelInfo2 = Get-RetentionComplianceRule -policy $R.name | select ApplyComplianceTag
-        $RSPLoc = get-retentioncompliancepolicy $R.name -DistributionDetail -RetentionRuleTypes -ExcludeTeamsPolicy | select -expandproperty Sharepointlocation
-        $RSPLocEx = get-retentioncompliancepolicy $R.name -DistributionDetail -RetentionRuleTypes -ExcludeTeamsPolicy | select -expandproperty SharepointlocationException
+        $LabelInfo = Get-RetentionComplianceRule -policy $R.name| Select-Object ComplianceTagProperty
+        $LabelInfo2 = Get-RetentionComplianceRule -policy $R.name | Select-Object ApplyComplianceTag
+        $RSPLoc = get-retentioncompliancepolicy $R.name -DistributionDetail -RetentionRuleTypes -ExcludeTeamsPolicy | Select-Object -expandproperty Sharepointlocation
+        $RSPLocEx = get-retentioncompliancepolicy $R.name -DistributionDetail -RetentionRuleTypes -ExcludeTeamsPolicy | Select-Object -expandproperty SharepointlocationException
 
 # =================================================================================
 # Get all Labels associated with policy
