@@ -1,6 +1,6 @@
 
 # =================================================================================
-# Information Leadership Office365 Retention label and policy checking script
+# Office365 Retention label and policy checking script
 # =================================================================================
 # NOTES/PREREQUISITES:
 # Please ensure that when running this script you have the Exchange administrator, 
