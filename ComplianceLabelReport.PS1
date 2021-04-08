@@ -77,11 +77,9 @@ foreach ($r in $retention)
         $policysites = get-retentioncompliancepolicy -identity $r.identity -ExcludeTeamsPolicy -DistributionDetail -RetentionRuleTypes | Select-Object -expandproperty SharepointLocation
         $policysites2 = get-retentioncompliancepolicy -ExcludeTeamsPolicy -DistributionDetail -RetentionRuleTypes
 
-#     $Policysitename = $policysites.name | Out-String
 
             foreach($s in $Sposites)
                 {
-#               $sURL = $s.URL
                     if ($policysites.name -eq $S.url)
                         {
 
@@ -291,7 +289,6 @@ foreach ($r in $rcompliance)
         $L2concat = ""
         $x2concat = ""
         $y2concat = ""
-#        $RFL = Get-Retentioncompliancepolicy -identity $r.name -ExcludeTeamsPolicy | FL
 
 # =================================================================================
 # Expand properties of Retention compliane policy and bind to variables
